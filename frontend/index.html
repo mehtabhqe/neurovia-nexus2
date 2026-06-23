@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurovia Nexus — Connect. Diagnose. Repair.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ════════════════ NAV ════════════════════════════════════ -->
+<nav>
+  <div class="container">
+    <div class="nav-wrap">
+      <a href="#" class="nav-logo">
+        <div class="logo-wordmark">
+          <span class="lw-n">N</span><span class="lw-eurovia">EUROVIA</span>
+          <span class="lw-break"></span>
+          <span class="lw-n2">N</span><span class="lw-exus">EXUS</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#technician">For Technicians</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#nadt">NADT</a></li>
+        <li><a href="#technician" class="nav-pill">Join as Technician</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════ HERO ═══════════════════════════════════ -->
+<section id="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge reveal">
+          <div class="badge-ping"></div>
+          <span class="badge-text">Live across 12 cities in India</span>
+        </div>
+        <h1 class="hero-h1 reveal d1">
+          Device broken?<br>
+          <span class="grad">Expert dispatched.</span>
+        </h1>
+        <p class="hero-sub reveal d2">
+          Neurovia Nexus connects Indian SMBs with verified local IT technicians — fast matching, transparent pricing, and trackable repairs. Zero downtime, zero guesswork.
+        </p>
+        <div class="hero-btns reveal d3">
+          <a href="#consumer" class="btn btn-primary">Book a Technician</a>
+          <a href="#technician" class="btn btn-ghost">Join as Technician →</a>
+        </div>
+        <div class="hero-trust reveal d4">
+          <div class="trust-avatars">
+            <div class="trust-av" style="background:linear-gradient(135deg,#6366F1,#7C3AED)">R</div>
+            <div class="trust-av" style="background:linear-gradient(135deg,#10B981,#059669)">A</div>
+            <div class="trust-av" style="background:linear-gradient(135deg,#F59E0B,#D97706)">S</div>
+            <div class="trust-av" style="background:linear-gradient(135deg,#F43F5E,#E11D48)">M</div>
+            <div class="trust-av" style="background:linear-gradient(135deg,#818CF8,#6366F1)">+</div>
+          </div>
+          <span class="trust-text">Trusted by <strong>500+ businesses</strong> across India</span>
+        </div>
+      </div>
+      <div class="hero-right reveal d2">
+        <div class="float-pill">
+          <div class="fp-dot"></div>
+          <span class="fp-text">ATRDE monitoring active</span>
+        </div>
+        <div class="hero-card-main">
+          <svg style="position:absolute;width:0;height:0">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#10B981"/>
+                <stop offset="100%" stop-color="#34D399"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="card-chrome">
+            <div class="chrome-dot" style="background:#FF5F57"></div>
+            <div class="chrome-dot" style="background:#FFBD2E"></div>
+            <div class="chrome-dot" style="background:#28CA41"></div>
+            <span class="chrome-title">NADT Device Monitor — Preview</span>
+          </div>
+          <div class="card-body">
+            <div class="dash-header">
+              <span class="dash-title">Device Health Overview</span>
+              <div class="dash-status">
+                <div class="dash-status-dot"></div>
+                ALL SYSTEMS NOMINAL
+              </div>
+            </div>
+            <div class="health-row">
+              <div class="ring-wrap">
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                  <circle class="r-track" cx="40" cy="40" r="35"/>
+                  <circle class="r-fill" cx="40" cy="40" r="35"/>
+                </svg>
+                <div class="ring-inner">
+                  <span class="ring-num">85</span>
+                  <span class="ring-lbl">HEALTH</span>
+                </div>
+              </div>
+              <div class="health-info">
+                <div class="hi-label">DEVICES MANAGED</div>
+                <div class="hi-val">24</div>
+                <div class="hi-sub">↑ 3 added this week</div>
+              </div>
+            </div>
+            <div class="metrics">
+              <div class="met-row">
+                <span class="met-name">CPU</span>
+                <div class="met-bar"><div class="met-fill" style="width:42%;background:linear-gradient(90deg,#6366F1,#818CF8)"></div></div>
+                <span class="met-val">42%</span>
+              </div>
+              <div class="met-row">
+                <span class="met-name">RAM</span>
+                <div class="met-bar"><div class="met-fill" style="width:71%;background:linear-gradient(90deg,#F59E0B,#FCD34D)"></div></div>
+                <span class="met-val">71%</span>
+              </div>
+              <div class="met-row">
+                <span class="met-name">Disk</span>
+                <div class="met-bar"><div class="met-fill" style="width:58%;background:linear-gradient(90deg,#10B981,#34D399)"></div></div>
+                <span class="met-val">58%</span>
+              </div>
+              <div class="met-row">
+                <span class="met-name">Battery</span>
+                <div class="met-bar"><div class="met-fill" style="width:22%;background:linear-gradient(90deg,#F43F5E,#FB7185)"></div></div>
+                <span class="met-val">22%</span>
+              </div>
+            </div>
+            <div class="alert-chip">
+              <div class="ac-icon">✅</div>
+              <div class="ac-text">
+                <div class="at-title">Auto-repair complete</div>
+                <div class="at-sub">Driver conflict resolved — 2 min ago · ATRDE AUTO</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-pill-2">
+          <div class="fp2-icon">🔧</div>
+          <div class="fp2-body">
+            <div class="fp2-title">Technician en route</div>
+            <div class="fp2-sub">Arrives in ~18 min · Rahul K.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ STATS ══════════════════════════════════ -->
+<div id="stats">
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stat-cell reveal">
+        <div class="stat-n">500+</div>
+        <div class="stat-l">Verified technicians</div>
+      </div>
+      <div class="stat-cell reveal d1">
+        <div class="stat-n">12</div>
+        <div class="stat-l">Cities active</div>
+      </div>
+      <div class="stat-cell reveal d2">
+        <div class="stat-n">98%</div>
+        <div class="stat-l">Resolution rate</div>
+      </div>
+      <div class="stat-cell reveal d3">
+        <div class="stat-n">&lt;2hr</div>
+        <div class="stat-l">Avg response time</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ HOW IT WORKS ═══════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The process</div>
+      <h2 class="sec-h2">Problem in. Solution out.</h2>
+      <p class="sec-p">Four steps from device failure to device fixed — no technical knowledge required from your side.</p>
+    </div>
+    <div class="how-grid reveal d1">
+      <div class="how-cell">
+        <div class="how-num">01 — REPORT</div>
+        <div class="how-icon-wrap" style="background:rgba(99,102,241,0.08);border-color:rgba(99,102,241,0.15)">🖥️</div>
+        <div class="how-title">Describe the issue</div>
+        <div class="how-desc">Tell us what's wrong in plain language. Slow, crashing, won't start — no jargon needed.</div>
+      </div>
+      <div class="how-cell">
+        <div class="how-num">02 — MATCH</div>
+        <div class="how-icon-wrap" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.15)">⚡</div>
+        <div class="how-title">Smart matching</div>
+        <div class="how-desc">We surface verified technicians near you with the exact skills your problem requires.</div>
+      </div>
+      <div class="how-cell">
+        <div class="how-num">03 — FIX</div>
+        <div class="how-icon-wrap" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.15)">🔧</div>
+        <div class="how-title">On-site repair</div>
+        <div class="how-desc">Verified expert arrives at your location. You approve the fix. They execute it. Done.</div>
+      </div>
+      <div class="how-cell">
+        <div class="how-num">04 — LOGGED</div>
+        <div class="how-icon-wrap" style="background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.15)">📋</div>
+        <div class="how-title">Report saved</div>
+        <div class="how-desc">Full repair log stored. Device health tracked going forward. History always accessible.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ SERVICES ═══════════════════════════════ -->
+<section id="services">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">What we fix</div>
+      <h2 class="sec-h2">Every device. Every problem.</h2>
+      <p class="sec-p">From a crashed laptop to a misconfigured server — our verified technician network covers the full IT support spectrum.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card glass reveal d1">
+        <div class="svc-icon-bg">💻</div>
+        <div class="svc-title">Laptop & Desktop Repair</div>
+        <div class="svc-desc">Slow performance, BSODs, overheating, display issues, keyboard failures, hardware replacements.</div>
+        <div class="svc-chips">
+          <span class="chip">Windows</span><span class="chip">macOS</span><span class="chip">Linux</span>
+        </div>
+      </div>
+      <div class="svc-card glass reveal d2">
+        <div class="svc-icon-bg">🌐</div>
+        <div class="svc-title">Network & Connectivity</div>
+        <div class="svc-desc">Wi-Fi drops, slow internet, router and switch configuration, firewall rules, VPN setup.</div>
+        <div class="svc-chips">
+          <span class="chip">LAN setup</span><span class="chip">Router config</span><span class="chip">VPN</span>
+        </div>
+      </div>
+      <div class="svc-card glass reveal d3">
+        <div class="svc-icon-bg">🔒</div>
+        <div class="svc-title">Security & Malware</div>
+        <div class="svc-desc">Virus removal, ransomware recovery, endpoint hardening, antivirus deployment and monitoring.</div>
+        <div class="svc-chips">
+          <span class="chip">Malware removal</span><span class="chip">Hardening</span>
+        </div>
+      </div>
+      <div class="svc-card glass reveal d1">
+        <div class="svc-icon-bg">🖨️</div>
+        <div class="svc-title">Peripheral & Printer</div>
+        <div class="svc-desc">Printer setup and drivers, scanner config, USB and Bluetooth peripheral troubleshooting.</div>
+        <div class="svc-chips">
+          <span class="chip">Driver install</span><span class="chip">Network print</span>
+        </div>
+      </div>
+      <div class="svc-card glass reveal d2">
+        <div class="svc-icon-bg">☁️</div>
+        <div class="svc-title">Software & Cloud</div>
+        <div class="svc-desc">Microsoft 365 setup, Google Workspace migration, cloud backup, software installation and updates.</div>
+        <div class="svc-chips">
+          <span class="chip">M365</span><span class="chip">Google Workspace</span>
+        </div>
+      </div>
+      <div class="svc-card glass reveal d3">
+        <div class="svc-icon-bg">🏢</div>
+        <div class="svc-title">SMB IT Contracts</div>
+        <div class="svc-desc">Monthly support contracts for businesses — dedicated technician on call, proactive health checks.</div>
+        <div class="svc-chips">
+          <span class="chip">Monthly plans</span><span class="chip">Priority SLA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ TECHNICIAN ═════════════════════════════ -->
+<section id="technician">
+  <div class="container">
+    <div class="tech-grid">
+      <div class="reveal">
+        <div class="eyebrow tech-label">For technicians</div>
+        <h2 class="tech-h2">Your skills.<br>A steady income.</h2>
+        <p class="tech-p">Join India's fastest-growing IT technician network. Get verified, get matched to jobs near you, and get paid — all through one platform built for independent IT professionals.</p>
+        <div class="perks">
+          <div class="perk">
+            <div class="perk-check">
+              <svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="perk-body">
+              <div class="perk-title">Jobs matched to your skills and location</div>
+              <div class="perk-sub">No cold calls. No bidding wars. We surface you when the right job appears nearby.</div>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-check">
+              <svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="perk-body">
+              <div class="perk-title">See the job and price before you accept</div>
+              <div class="perk-sub">Full transparency on scope and pay. You decide what you take on.</div>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-check">
+              <svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="perk-body">
+              <div class="perk-title">Same-day payout on job completion</div>
+              <div class="perk-sub">No waiting 30–45 days. Money in your account when the job is confirmed done.</div>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-check">
+              <svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="perk-body">
+              <div class="perk-title">Build a verified reputation over time</div>
+              <div class="perk-sub">Reviews, certifications, and job history that follows you and unlocks priority access.</div>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn btn-green">Apply as a Technician</a>
+      </div>
+      <div class="reveal d2">
+        <div class="glass-2 tech-form" id="tech-form">
+          <div class="tf-h">Register your interest</div>
+          <div class="tf-s">Takes 2 minutes. We'll reach out within 24 hours.</div>
+          <div class="tf-row">
+            <div class="fld">
+              <label>Full name</label>
+              <input type="text" id="tech-name" placeholder="Rahul Sharma">
+            </div>
+            <div class="fld">
+              <label>Phone number</label>
+              <input type="tel" id="tech-phone" placeholder="+91 98765 43210">
+            </div>
+          </div>
+          <div class="tf-row">
+            <div class="fld">
+              <label>City</label>
+              <input type="text" id="tech-city" placeholder="Mumbai, Delhi…">
+            </div>
+            <div class="fld">
+              <label>Years of experience</label>
+              <input type="text" id="tech-exp" placeholder="e.g. 3 years">
+            </div>
+          </div>
+          <div class="fld">
+            <label>Primary expertise</label>
+            <select id="tech-expertise">
+              <option value="" disabled selected>Select your main skill</option>
+              <option>Hardware repair</option>
+              <option>Networking &amp; infrastructure</option>
+              <option>Cybersecurity</option>
+              <option>Software &amp; OS support</option>
+              <option>Server &amp; cloud</option>
+              <option>General IT support</option>
+            </select>
+          </div>
+          <button class="tf-btn" id="tech-submit-btn" onclick="submitTechForm()">Submit application →</button>
+          <div id="tech-msg" style="margin-top:12px;font-size:.8125rem;min-height:18px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ CONSUMER ═══════════════════════════════ -->
+<section id="consumer">
+  <div class="container">
+    <div class="con-grid">
+      <div class="reveal">
+        <div class="eyebrow" style="margin-bottom:12px">For businesses & individuals</div>
+        <h2 class="con-h2">Stop losing hours to broken devices</h2>
+        <p class="con-p">The average Indian SMB loses 2–8 hours every time a device fails. At ₹5,000–15,000 per billable hour, that is real money. Neurovia Nexus gets a verified expert to you in under 2 hours.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-line"></div>
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <div class="step-title">Describe your problem in plain language</div>
+              <div class="step-desc">No technical knowledge needed. We understand "my laptop keeps freezing" just fine.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-line"></div>
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <div class="step-title">Get matched to the right technician</div>
+              <div class="step-desc">We surface verified experts near you with the exact skills your problem requires.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-line"></div>
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <div class="step-title">Track, approve, and pay securely</div>
+              <div class="step-desc">Follow arrival in real time. Approve the repair before it starts. Pay only when done.</div>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn btn-primary">Book a Technician Now</a>
+      </div>
+      <div class="reveal d2">
+        <div class="glass-2 book-form" id="book-form">
+          <div class="book-label">DESCRIBE YOUR ISSUE</div>
+          <textarea class="book-desc-field" id="book-desc" rows="4" placeholder="e.g. My laptop is running very slow since yesterday. It takes 5 minutes to start up and freezes when opening Excel…"></textarea>
+          <div class="book-row">
+            <select class="book-select" id="book-service">
+              <option value="" disabled selected>Service type</option>
+              <option>Laptop/Desktop repair</option>
+              <option>Network issue</option>
+              <option>Security/Virus</option>
+              <option>Software setup</option>
+              <option>Printer/Peripheral</option>
+              <option>Other</option>
+            </select>
+            <button class="book-btn" id="book-submit-btn" onclick="submitBookingForm()">Find Technician →</button>
+          </div>
+          <div id="book-msg" style="font-size:.8125rem;min-height:18px;margin-bottom:8px"></div>
+          <div class="book-trust">
+            <div class="bt-item"><span>⚡</span> Avg match in &lt;10 min</div>
+            <div class="bt-item"><span>🔒</span> Verified experts only</div>
+            <div class="bt-item"><span>💸</span> Pay after fix</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ BLOG ════════════════════════════════════ -->
+<section id="blog">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">From the team</div>
+      <h2 class="sec-h2">Insights on IT, devices & autonomous support</h2>
+      <p class="sec-p">Practical knowledge for SMB owners, IT professionals, and founders building with AI.</p>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card glass reveal d1" onclick="location.href='blog-smb-downtime.html'" style="cursor:pointer">
+        <div class="blog-thumb bt-1">🖥️</div>
+        <div class="blog-body">
+          <div class="blog-cat">SMB GUIDE</div>
+          <h3 class="blog-h">Why Indian SMBs lose ₹2–8 lakh annually to preventable device downtime</h3>
+          <p class="blog-x">A breakdown of the real cost of reactive IT support — and what proactive device management saves each year.</p>
+          <div class="blog-foot">
+            <span class="blog-by">Neurovia Team · 5 min read</span>
+            <a href="blog-smb-downtime.html" class="blog-arrow">Read →</a>
+          </div>
+        </div>
+      </article>
+      <article class="blog-card glass reveal d2" onclick="location.href='blog-technician-income.html'" style="cursor:pointer">
+        <div class="blog-thumb bt-2">🔧</div>
+        <div class="blog-body">
+          <div class="blog-cat">FOR TECHNICIANS</div>
+          <h3 class="blog-h">How to build a ₹1L/month income as a freelance IT technician in India</h3>
+          <p class="blog-x">The platforms, skills, and positioning strategies that the highest-earning independent technicians use.</p>
+          <div class="blog-foot">
+            <span class="blog-by">Neurovia Team · 7 min read</span>
+            <a href="blog-technician-income.html" class="blog-arrow">Read →</a>
+          </div>
+        </div>
+      </article>
+      <article class="blog-card glass reveal d3" onclick="location.href='blog-atrde-explained.html'" style="cursor:pointer">
+        <div class="blog-thumb bt-3">🤖</div>
+        <div class="blog-body">
+          <div class="blog-cat">AI & TECHNOLOGY</div>
+          <h3 class="blog-h">What autonomous device repair actually means — and how ATRDE makes decisions</h3>
+          <p class="blog-x">A non-technical explanation of how a six-dimensional risk engine evaluates every action before touching your device.</p>
+          <div class="blog-foot">
+            <span class="blog-by">Neurovia Team · 6 min read</span>
+            <a href="blog-atrde-explained.html" class="blog-arrow">Read →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ NADT COMING SOON ═══════════════════════ -->
+<section id="nadt">
+  <div class="nadt-orb-1"></div>
+  <div class="nadt-orb-2"></div>
+  <div class="container">
+    <div class="nadt-inner">
+      <div class="nadt-badge reveal">
+        <div class="nb-ping"></div>
+        <span class="nb-text">In active development · Coming Q4 2025</span>
+      </div>
+      <h2 class="nadt-h reveal d1">
+        Introducing <span class="ng">NADT</span> —<br>your device's AI technician
+      </h2>
+      <p class="nadt-p reveal d2">
+        The Neurovia Autonomous Device Technician monitors, diagnoses, and repairs devices automatically. Before you notice anything went wrong.
+      </p>
+      <div class="countdown reveal d3" id="countdown">
+        <div class="cd-block">
+          <span class="cd-num" id="d">00</span>
+          <span class="cd-lbl">Days</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <span class="cd-num" id="h">00</span>
+          <span class="cd-lbl">Hours</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <span class="cd-num" id="m">00</span>
+          <span class="cd-lbl">Minutes</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <span class="cd-num" id="s">00</span>
+          <span class="cd-lbl">Seconds</span>
+        </div>
+      </div>
+      <div class="nadt-feats reveal d1">
+        <div class="nf glass">
+          <div class="nf-icon">📡</div>
+          <div class="nf-title">Always-on monitoring</div>
+          <div class="nf-desc">7 engines tracking CPU, RAM, storage, battery, drivers, and software health 24/7.</div>
+          <span class="nf-phase">Phase 1</span>
+        </div>
+        <div class="nf glass">
+          <div class="nf-icon">🧠</div>
+          <div class="nf-title">ATRDE engine</div>
+          <div class="nf-desc">6-dimensional autonomous decision engine. Risk-aware, reversible, context-sensitive.</div>
+          <span class="nf-phase">Phase 2</span>
+        </div>
+        <div class="nf glass">
+          <div class="nf-icon">⚡</div>
+          <div class="nf-title">Auto-repair</div>
+          <div class="nf-desc">Issues resolved in 2–5 minutes without interrupting your work. Downtime becomes history.</div>
+          <span class="nf-phase">Phase 2</span>
+        </div>
+        <div class="nf glass">
+          <div class="nf-icon">🔗</div>
+          <div class="nf-title">Smart escalation</div>
+          <div class="nf-desc">When AI reaches its limit, NADT books the right human technician — pre-loaded with full context.</div>
+          <span class="nf-phase">Phase 3</span>
+        </div>
+      </div>
+      <div class="waitlist glass-2 reveal d2">
+        <div class="wl-h">Join the early access waitlist</div>
+        <div class="wl-s">Be first when NADT launches. One email. No spam.</div>
+        <div class="wl-row">
+          <input type="email" class="wl-input" id="wl-email" placeholder="your@company.com">
+          <button class="wl-btn" id="wl-btn" onclick="submitWaitlist()">Notify me →</button>
+        </div>
+        <div id="wl-msg" style="font-size:.8rem;min-height:16px;text-align:center;margin-top:8px"></div>
+        <p class="wl-note">Used only to send you the NADT launch email.</p>
+        <p class="wl-count" id="wl-count"><strong>247 businesses</strong> already on the waitlist</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ═════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <div class="nav-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="4" stroke="white" stroke-width="1.8"/>
+              <path d="M9 2V4M9 14V16M2 9H4M14 9H16" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="9" cy="9" r="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span class="logo-name">Neurovia <em>Nexus</em></span>
+        </div>
+        <p class="ft-brand-tagline">Building the autonomous support infrastructure for Indian SMBs. Connecting businesses with verified technicians today — AI repair tomorrow.</p>
+      </div>
+      <div>
+        <div class="ft-col-h">Platform</div>
+        <ul class="ft-links">
+          <li><a href="#">Book a technician</a></li>
+          <li><a href="#">Join as technician</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Company</div>
+        <ul class="ft-links">
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">NADT</div>
+        <ul class="ft-links">
+          <li><a href="#">What is NADT?</a></li>
+          <li><a href="#">Join waitlist</a></li>
+          <li><a href="#">ATRDE engine</a></li>
+          <li><a href="#">Early access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-copy">© 2025 Neurovia Nexus. All rights reserved.</span>
+      <div class="ft-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+<script src="api.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurovia Nexus — Admin Dashboard</title>
+<style>
+:root {
+  --bg:      #060612; --bg2: #0C0C1E; --bg3: #12122A;
+  --border:  rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --t1: rgba(255,255,255,0.95);
+  --t2: rgba(255,255,255,0.60);
+  --t3: rgba(255,255,255,0.30);
+  --indigo: #6366F1; --indigo2: #818CF8;
+  --green:  #10B981; --green2:  #34D399;
+  --amber:  #F59E0B; --rose:    #F43F5E;
+  --r: 10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t1);line-height:1.5;min-height:100vh}
+a{text-decoration:none;color:inherit}
+/* LOGIN */
+#login-screen{
+  min-height:100vh;display:flex;
+  align-items:center;justify-content:center
+}
+.login-box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border2);
+  border-radius:16px;padding:40px;
+  width:100%;max-width:400px;
+  text-align:center
+}
+.login-box h1{
+  font-size:1.5rem;font-weight:700;
+  margin-bottom:6px
+}
+.login-box p{font-size:.875rem;color:var(--t2);margin-bottom:28px}
+.inp{
+  width:100%;background:rgba(255,255,255,0.05);
+  border:1px solid var(--border2);border-radius:8px;
+  padding:11px 14px;font-size:.9rem;color:var(--t1);
+  outline:none;margin-bottom:14px;
+  transition:border-color .2s;font-family:inherit
+}
+.inp:focus{border-color:var(--indigo)}
+.inp::placeholder{color:var(--t3)}
+.btn-login{
+  width:100%;background:linear-gradient(135deg,var(--indigo),#7C3AED);
+  color:white;padding:12px;border-radius:8px;
+  font-size:.9375rem;font-weight:600;border:none;
+  cursor:pointer;transition:opacity .2s;font-family:inherit
+}
+.btn-login:hover{opacity:.9}
+.login-err{
+  font-size:.8125rem;color:var(--rose);
+  margin-top:10px;min-height:20px
+}
+/* LAYOUT */
+#app{display:none;min-height:100vh}
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;
+  width:220px;background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  z-index:50
+}
+.sb-brand{
+  padding:20px 20px 16px;
+  border-bottom:1px solid var(--border)
+}
+.sb-brand-name{
+  font-weight:700;font-size:1rem;color:var(--t1)
+}
+.sb-brand-name em{color:var(--indigo2);font-style:normal}
+.sb-brand-sub{font-size:.7rem;color:var(--t3);margin-top:2px}
+.sb-nav{padding:12px 10px;flex:1}
+.sb-section{
+  font-size:.6rem;letter-spacing:.12em;
+  color:var(--t3);padding:12px 10px 6px;
+  text-transform:uppercase
+}
+.sb-link{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 10px;border-radius:7px;
+  font-size:.8125rem;color:var(--t2);
+  cursor:pointer;transition:all .15s;margin-bottom:2px
+}
+.sb-link:hover{background:rgba(255,255,255,0.05);color:var(--t1)}
+.sb-link.active{background:rgba(99,102,241,0.15);color:var(--indigo2)}
+.sb-icon{font-size:1rem;width:20px;text-align:center}
+.sb-badge{
+  margin-left:auto;background:var(--indigo);
+  color:white;font-size:.6rem;font-weight:700;
+  padding:2px 6px;border-radius:100px;min-width:18px;text-align:center
+}
+.sb-footer{
+  padding:14px 16px;border-top:1px solid var(--border)
+}
+.sb-logout{
+  display:flex;align-items:center;gap:8px;
+  font-size:.8125rem;color:var(--t3);cursor:pointer;
+  transition:color .2s
+}
+.sb-logout:hover{color:var(--rose)}
+/* MAIN */
+.main{margin-left:220px;padding:28px;min-height:100vh}
+.page-head{margin-bottom:28px}
+.page-title{
+  font-size:1.5rem;font-weight:700;
+  letter-spacing:-.02em;margin-bottom:4px
+}
+.page-sub{font-size:.875rem;color:var(--t2)}
+/* STAT CARDS */
+.stat-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;margin-bottom:28px
+}
+.stat-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px
+}
+.sc-label{font-size:.72rem;color:var(--t3);margin-bottom:8px;letter-spacing:.04em}
+.sc-num{
+  font-size:1.875rem;font-weight:700;
+  color:var(--t1);line-height:1
+}
+.sc-sub{font-size:.75rem;color:var(--t3);margin-top:6px}
+/* TABLE */
+.card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;margin-bottom:20px
+}
+.card-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--border)
+}
+.card-title{font-size:.9375rem;font-weight:600;color:var(--t1)}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.8125rem}
+th{
+  text-align:left;padding:11px 16px;
+  background:rgba(255,255,255,0.02);
+  color:var(--t3);font-weight:500;
+  border-bottom:1px solid var(--border);
+  white-space:nowrap
+}
+td{
+  padding:11px 16px;color:var(--t2);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  vertical-align:middle
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+/* BADGES */
+.badge{
+  display:inline-block;font-size:.65rem;font-weight:600;
+  padding:3px 9px;border-radius:100px;letter-spacing:.04em
+}
+.b-pending  {background:rgba(245,158,11,.15);color:var(--amber)}
+.b-approved {background:rgba(16,185,129,.15);color:var(--green2)}
+.b-rejected {background:rgba(244,63,94,.15); color:var(--rose)}
+.b-new      {background:rgba(99,102,241,.15);color:var(--indigo2)}
+.b-progress {background:rgba(245,158,11,.15);color:var(--amber)}
+.b-completed{background:rgba(16,185,129,.15);color:var(--green2)}
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 14px;border-radius:6px;font-size:.78rem;
+  font-weight:500;border:none;cursor:pointer;
+  transition:all .15s;font-family:inherit
+}
+.btn-approve{background:rgba(16,185,129,.15);color:var(--green2)}
+.btn-approve:hover{background:rgba(16,185,129,.25)}
+.btn-reject{background:rgba(244,63,94,.1);color:var(--rose)}
+.btn-reject:hover{background:rgba(244,63,94,.2)}
+.btn-primary{background:var(--indigo);color:white}
+.btn-primary:hover{background:#4F46E5}
+.btn-danger{background:rgba(244,63,94,.1);color:var(--rose);border:1px solid rgba(244,63,94,.2)}
+.btn-danger:hover{background:rgba(244,63,94,.2)}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);color:var(--t1)}
+/* BLOG EDITOR */
+.blog-form{padding:24px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;font-size:.8rem;color:var(--t2);
+  margin-bottom:6px;font-weight:500
+}
+.form-control{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid var(--border2);border-radius:7px;
+  padding:10px 14px;font-size:.875rem;
+  color:var(--t1);outline:none;
+  transition:border-color .2s;font-family:inherit
+}
+.form-control:focus{border-color:var(--indigo)}
+.form-control::placeholder{color:var(--t3)}
+textarea.form-control{resize:vertical;min-height:120px}
+#blog-content{min-height:320px;font-family:'Courier New',monospace;font-size:.8rem;line-height:1.7}
+.form-check{display:flex;align-items:center;gap:8px;font-size:.875rem;color:var(--t2);margin-right:20px}
+.form-check input{width:15px;height:15px;accent-color:var(--indigo);cursor:pointer}
+.form-checks{display:flex;margin-bottom:16px}
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.search-inp{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border2);border-radius:7px;
+  padding:7px 13px;font-size:.8125rem;
+  color:var(--t1);outline:none;width:220px;
+  transition:border-color .2s;font-family:inherit
+}
+.search-inp:focus{border-color:var(--indigo)}
+.search-inp::placeholder{color:var(--t3)}
+select.filter-sel{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border2);border-radius:7px;
+  padding:7px 13px;font-size:.8125rem;color:var(--t2);
+  outline:none;cursor:pointer;font-family:inherit
+}
+select.filter-sel option{background:#0C0C1E;color:var(--t1)}
+/* EMPTY STATE */
+.empty{
+  text-align:center;padding:48px;
+  color:var(--t3);font-size:.875rem
+}
+/* TOAST */
+#toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:9px;padding:12px 18px;
+  font-size:.875rem;color:var(--t1);
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  transform:translateY(80px);opacity:0;
+  transition:all .3s;z-index:200;max-width:320px
+}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.success{border-color:rgba(16,185,129,.3);color:var(--green2)}
+#toast.error{border-color:rgba(244,63,94,.3);color:var(--rose)}
+/* PAGINATION */
+.pagination{
+  display:flex;align-items:center;gap:8px;
+  padding:14px 20px;border-top:1px solid var(--border);
+  font-size:.8125rem;color:var(--t2)
+}
+.pg-btn{
+  padding:5px 12px;border-radius:6px;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--t2);transition:all .15s
+}
+.pg-btn:hover{background:rgba(255,255,255,.08);color:var(--t1)}
+.pg-btn:disabled{opacity:.3;cursor:not-allowed}
+/* MODAL */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.7);z-index:100;
+  align-items:center;justify-content:center
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:14px;padding:28px;width:100%;
+  max-width:560px;max-height:90vh;overflow-y:auto
+}
+.modal h3{font-size:1.125rem;font-weight:600;margin-bottom:16px}
+.modal-foot{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{width:60px}
+  .sb-link span,.sb-section,.sb-brand-sub,.sb-badge,.sb-logout span{display:none}
+  .main{margin-left:60px;padding:16px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ──────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>🔐 Admin Login</h1>
+    <p>Neurovia Nexus Dashboard</p>
+    <input class="inp" id="login-email" type="email" placeholder="admin@neurovia.in" autocomplete="username">
+    <input class="inp" id="login-pass" type="password" placeholder="Password" autocomplete="current-password">
+    <button class="btn-login" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- ── APP ────────────────────────────────────────────────── -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-brand-name">Neurovia <em>Nexus</em></div>
+      <div class="sb-brand-sub">Admin Dashboard</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">Overview</div>
+      <div class="sb-link active" onclick="showPage('dashboard')">
+        <span class="sb-icon">📊</span><span>Dashboard</span>
+      </div>
+      <div class="sb-section">Manage</div>
+      <div class="sb-link" onclick="showPage('technicians')">
+        <span class="sb-icon">🔧</span><span>Technicians</span>
+        <span class="sb-badge" id="badge-tech">0</span>
+      </div>
+      <div class="sb-link" onclick="showPage('bookings')">
+        <span class="sb-icon">📋</span><span>Bookings</span>
+        <span class="sb-badge" id="badge-book">0</span>
+      </div>
+      <div class="sb-link" onclick="showPage('waitlist')">
+        <span class="sb-icon">📧</span><span>Waitlist</span>
+      </div>
+      <div class="sb-section">Content</div>
+      <div class="sb-link" onclick="showPage('blog')">
+        <span class="sb-icon">✍️</span><span>Blog CMS</span>
+      </div>
+    </nav>
+    <div class="sb-footer">
+      <div class="sb-logout" onclick="doLogout()">
+        <span>🚪</span><span>Logout</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main" id="main-content"></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal">
+    <h3 id="confirm-title">Confirm Action</h3>
+    <p id="confirm-msg" style="color:var(--t2);font-size:.9rem"></p>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = ''; // Same origin — backend serves this file
+
+// ── STATE ──────────────────────────────────────────────────
+let TOKEN = localStorage.getItem('nn_admin_token') || '';
+let currentPage = 'dashboard';
+
+// ── HELPERS ────────────────────────────────────────────────
+async function api(method, path, body) {
+  const opts = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${TOKEN}`
+    }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(API + path, opts);
+  const data = await res.json();
+  if (res.status === 401) { doLogout(); return null; }
+  return data;
+}
+
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `show ${type}`;
+  setTimeout(() => el.className = '', 3000);
+}
+
+function confirm(title, msg, fn) {
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('confirm-msg').textContent = msg;
+  document.getElementById('confirm-ok').onclick = () => { closeModal(); fn(); };
+  document.getElementById('confirm-modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('confirm-modal').classList.remove('open');
+}
+
+function badge(status) {
+  const map = {
+    pending:'b-pending', approved:'b-approved', rejected:'b-rejected',
+    new:'b-new', in_progress:'b-progress', completed:'b-completed'
+  };
+  return `<span class="badge ${map[status]||''}">${status.replace('_',' ')}</span>`;
+}
+
+function fmt(dt) {
+  if (!dt) return '—';
+  return new Date(dt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+// ── AUTH ───────────────────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-err');
+  errEl.textContent = '';
+
+  if (!email || !pass) { errEl.textContent = 'Please enter email and password'; return; }
+
+  const res = await fetch(API + '/api/admin/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password: pass })
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    TOKEN = data.token;
+    localStorage.setItem('nn_admin_token', TOKEN);
+    startApp();
+  } else {
+    errEl.textContent = data.message || 'Login failed';
+  }
+}
+
+document.getElementById('login-pass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+function doLogout() {
+  TOKEN = '';
+  localStorage.removeItem('nn_admin_token');
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+async function startApp() {
+  // Verify token
+  const me = await api('GET', '/api/admin/me');
+  if (!me || !me.success) { doLogout(); return; }
+
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  showPage('dashboard');
+}
+
+// ── ROUTING ────────────────────────────────────────────────
+function showPage(page) {
+  currentPage = page;
+  document.querySelectorAll('.sb-link').forEach(el => el.classList.remove('active'));
+  event && event.currentTarget && event.currentTarget.classList.add('active');
+  // Update active sidebar
+  document.querySelectorAll('.sb-link').forEach(el => {
+    if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(`'${page}'`)) {
+      el.classList.add('active');
+    }
+  });
+  const pages = {
+    dashboard:   renderDashboard,
+    technicians: renderTechnicians,
+    bookings:    renderBookings,
+    waitlist:    renderWaitlist,
+    blog:        renderBlog
+  };
+  if (pages[page]) pages[page]();
+}
+
+// ── DASHBOARD ──────────────────────────────────────────────
+async function renderDashboard() {
+  const main = document.getElementById('main-content');
+  main.innerHTML = `<div class="page-head"><div class="page-title">Dashboard</div><div class="page-sub">Overview of all activity</div></div><div style="color:var(--t3);font-size:.875rem">Loading...</div>`;
+
+  const res = await api('GET', '/api/admin/stats');
+  if (!res || !res.success) return;
+
+  const s = res.stats;
+  // Update sidebar badges
+  document.getElementById('badge-tech').textContent = s.technicians.pending;
+  document.getElementById('badge-book').textContent = s.bookings.new;
+
+  main.innerHTML = `
+    <div class="page-head">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Welcome back — here is what's happening</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="sc-label">TECHNICIANS</div>
+        <div class="sc-num">${s.technicians.total}</div>
+        <div class="sc-sub">${s.technicians.pending} pending approval</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">BOOKINGS</div>
+        <div class="sc-num">${s.bookings.total}</div>
+        <div class="sc-sub">${s.bookings.new} new requests</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">NADT WAITLIST</div>
+        <div class="sc-num">${s.waitlist.total}</div>
+        <div class="sc-sub">${s.waitlist.today} joined today</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">BLOG POSTS</div>
+        <div class="sc-num">${s.blog.published}</div>
+        <div class="sc-sub">${s.blog.drafts} drafts</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="card">
+        <div class="card-head"><span class="card-title">Recent Bookings</span><button class="btn btn-ghost" onclick="showPage('bookings')">View all</button></div>
+        <div class="tbl-wrap"><table>
+          <tr><th>ID</th><th>Service</th><th>City</th><th>Status</th><th>Date</th></tr>
+          ${s.recent_bookings.map(b => `
+            <tr>
+              <td>#${b.id}</td>
+              <td>${b.service_type}</td>
+              <td>${b.city || '—'}</td>
+              <td>${badge(b.status)}</td>
+              <td>${fmt(b.created_at)}</td>
+            </tr>`).join('') || '<tr><td colspan="5" class="empty">No bookings yet</td></tr>'}
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">Recent Technicians</span><button class="btn btn-ghost" onclick="showPage('technicians')">View all</button></div>
+        <div class="tbl-wrap"><table>
+          <tr><th>Name</th><th>City</th><th>Skill</th><th>Status</th></tr>
+          ${s.recent_technicians.map(t => `
+            <tr>
+              <td>${t.full_name}</td>
+              <td>${t.city}</td>
+              <td style="font-size:.75rem;color:var(--t3)">${t.expertise}</td>
+              <td>${badge(t.status)}</td>
+            </tr>`).join('') || '<tr><td colspan="4" class="empty">No applications yet</td></tr>'}
+        </table></div>
+      </div>
+    </div>`;
+}
+
+// ── TECHNICIANS ────────────────────────────────────────────
+let techFilter = '';
+async function renderTechnicians(filter) {
+  if (filter !== undefined) techFilter = filter;
+  const main = document.getElementById('main-content');
+  const url = `/api/admin/technicians${techFilter ? '?status=' + techFilter : ''}`;
+  const res = await api('GET', url);
+  if (!res) return;
+
+  main.innerHTML = `
+    <div class="page-head">
+      <div class="page-title">Technician Applications</div>
+      <div class="page-sub">${res.total} total registrations</div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="toolbar">
+          <select class="filter-sel" onchange="renderTechnicians(this.value)">
+            <option value="">All statuses</option>
+            <option value="pending"  ${techFilter==='pending'  ?'selected':''}>Pending</option>
+            <option value="approved" ${techFilter==='approved' ?'selected':''}>Approved</option>
+            <option value="rejected" ${techFilter==='rejected' ?'selected':''}>Rejected</option>
+          </select>
+        </div>
+      </div>
+      <div class="tbl-wrap"><table>
+        <tr><th>#</th><th>Name</th><th>Phone</th><th>City</th><th>Expertise</th><th>Experience</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+        ${res.data.length ? res.data.map(t => `
+          <tr>
+            <td style="color:var(--t3)">${t.id}</td>
+            <td style="font-weight:500;color:var(--t1)">${t.full_name}</td>
+            <td>${t.phone}</td>
+            <td>${t.city}</td>
+            <td style="font-size:.75rem">${t.expertise}</td>
+            <td style="font-size:.75rem;color:var(--t3)">${t.experience || '—'}</td>
+            <td>${badge(t.status)}</td>
+            <td style="color:var(--t3)">${fmt(t.created_at)}</td>
+            <td>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                ${t.status !== 'approved' ? `<button class="btn btn-approve" onclick="updateTechStatus(${t.id},'approved')">✓ Approve</button>` : ''}
+                ${t.status !== 'rejected' ? `<button class="btn btn-reject"  onclick="updateTechStatus(${t.id},'rejected')">✗ Reject</button>` : ''}
+                <button class="btn btn-danger" onclick="deleteTech(${t.id})">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : '<tr><td colspan="9" class="empty">No technicians found</td></tr>'}
+      </table></div>
+    </div>`;
+}
+
+async function updateTechStatus(id, status) {
+  const res = await api('PATCH', `/api/admin/technicians/${id}/status`, { status });
+  if (res && res.success) { toast(`Technician ${status}`); renderTechnicians(); }
+  else toast(res?.message || 'Error', 'error');
+}
+
+function deleteTech(id) {
+  confirm('Delete Technician', 'This cannot be undone. Are you sure?', async () => {
+    const res = await api('DELETE', `/api/admin/technicians/${id}`);
+    if (res && res.success) { toast('Technician deleted'); renderTechnicians(); }
+    else toast('Error deleting', 'error');
+  });
+}
+
+// ── BOOKINGS ───────────────────────────────────────────────
+let bookFilter = '';
+async function renderBookings(filter) {
+  if (filter !== undefined) bookFilter = filter;
+  const url = `/api/admin/bookings${bookFilter ? '?status=' + bookFilter : ''}`;
+  const res = await api('GET', url);
+  if (!res) return;
+
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="page-head">
+      <div class="page-title">Service Bookings</div>
+      <div class="page-sub">${res.total} total booking requests</div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="toolbar">
+          <select class="filter-sel" onchange="renderBookings(this.value)">
+            <option value="">All statuses</option>
+            <option value="new"         ${bookFilter==='new'         ?'selected':''}>New</option>
+            <option value="in_progress" ${bookFilter==='in_progress' ?'selected':''}>In Progress</option>
+            <option value="completed"   ${bookFilter==='completed'   ?'selected':''}>Completed</option>
+          </select>
+        </div>
+      </div>
+      <div class="tbl-wrap"><table>
+        <tr><th>#</th><th>Issue</th><th>Service</th><th>Customer</th><th>City</th><th>Status</th><th>Assigned</th><th>Date</th><th>Actions</th></tr>
+        ${res.data.length ? res.data.map(b => `
+          <tr>
+            <td style="color:var(--t3)">${b.id}</td>
+            <td style="max-width:200px;font-size:.75rem;color:var(--t2)">${b.issue_desc.substring(0,80)}${b.issue_desc.length>80?'…':''}</td>
+            <td style="font-size:.75rem">${b.service_type}</td>
+            <td>${b.customer_name || '—'}<br><span style="font-size:.7rem;color:var(--t3)">${b.customer_phone || ''}</span></td>
+            <td>${b.city || '—'}</td>
+            <td>${badge(b.status)}</td>
+            <td style="font-size:.75rem;color:var(--t3)">${b.technician_name || 'Unassigned'}</td>
+            <td style="color:var(--t3)">${fmt(b.created_at)}</td>
+            <td>
+              <div style="display:flex;gap:6px">
+                <button class="btn btn-primary" onclick="updateBookingStatus(${b.id},'in_progress')" ${b.status==='in_progress'?'disabled':''}>▶ Start</button>
+                <button class="btn btn-approve" onclick="updateBookingStatus(${b.id},'completed')"   ${b.status==='completed'?'disabled':''}>✓ Done</button>
+              </div>
+            </td>
+          </tr>`).join('') : '<tr><td colspan="9" class="empty">No bookings found</td></tr>'}
+      </table></div>
+    </div>`;
+}
+
+async function updateBookingStatus(id, status) {
+  const res = await api('PATCH', `/api/admin/bookings/${id}`, { status });
+  if (res && res.success) { toast('Booking updated'); renderBookings(); }
+  else toast(res?.message || 'Error', 'error');
+}
+
+// ── WAITLIST ───────────────────────────────────────────────
+async function renderWaitlist() {
+  const res = await api('GET', '/api/admin/waitlist');
+  if (!res) return;
+
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="page-head">
+      <div class="page-title">NADT Waitlist</div>
+      <div class="page-sub">${res.total} people waiting for NADT launch</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">All Waitlist Signups</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>#</th><th>Email</th><th>Company</th><th>Role</th><th>Devices</th><th>Source</th><th>Date</th><th></th></tr>
+        ${res.data.length ? res.data.map(w => `
+          <tr>
+            <td style="color:var(--t3)">${w.id}</td>
+            <td style="color:var(--t1);font-weight:500">${w.email}</td>
+            <td>${w.company || '—'}</td>
+            <td style="font-size:.75rem;color:var(--t3)">${w.role || '—'}</td>
+            <td style="font-size:.75rem">${w.devices || '—'}</td>
+            <td style="font-size:.7rem;color:var(--t3)">${w.source}</td>
+            <td style="color:var(--t3)">${fmt(w.created_at)}</td>
+            <td><button class="btn btn-danger" onclick="deleteWaitlist(${w.id})">🗑</button></td>
+          </tr>`).join('') : '<tr><td colspan="8" class="empty">No waitlist signups yet</td></tr>'}
+      </table></div>
+    </div>`;
+}
+
+async function deleteWaitlist(id) {
+  confirm('Remove from Waitlist', 'Remove this email from the waitlist?', async () => {
+    const res = await api('DELETE', `/api/admin/waitlist/${id}`);
+    if (res && res.success) { toast('Entry removed'); renderWaitlist(); }
+    else toast('Error', 'error');
+  });
+}
+
+// ── BLOG CMS ───────────────────────────────────────────────
+let editingPostId = null;
+
+async function renderBlog() {
+  const res = await api('GET', '/api/admin/blog');
+  if (!res) return;
+
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="page-head" style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div>
+        <div class="page-title">Blog CMS</div>
+        <div class="page-sub">${res.data.length} posts total</div>
+      </div>
+      <button class="btn btn-primary" onclick="renderBlogEditor(null)">+ New Post</button>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap"><table>
+        <tr><th>Title</th><th>Category</th><th>Status</th><th>Featured</th><th>Date</th><th>Actions</th></tr>
+        ${res.data.length ? res.data.map(p => `
+          <tr>
+            <td style="color:var(--t1);font-weight:500;max-width:260px">${p.title}</td>
+            <td style="font-size:.75rem">${p.category}</td>
+            <td>${p.published ? '<span class="badge b-approved">Published</span>' : '<span class="badge b-pending">Draft</span>'}</td>
+            <td>${p.featured ? '⭐' : '—'}</td>
+            <td style="color:var(--t3)">${fmt(p.created_at)}</td>
+            <td>
+              <div style="display:flex;gap:6px">
+                <button class="btn btn-ghost" onclick="renderBlogEditor(${p.id})">✏️ Edit</button>
+                <button class="btn btn-danger" onclick="deleteBlogPost(${p.id})">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : '<tr><td colspan="6" class="empty">No posts yet. Create your first post!</td></tr>'}
+      </table></div>
+    </div>`;
+}
+
+async function renderBlogEditor(id) {
+  editingPostId = id;
+  let post = { title:'', category:'SMB Guide', excerpt:'', content:'', author:'Neurovia Team', read_time:'', published:false, featured:false };
+
+  if (id) {
+    const res = await api('GET', `/api/admin/blog/${id}`);
+    if (res && res.success) post = res.data;
+  }
+
+  const main = document.getElementById('main-content');
+  main.innerHTML = `
+    <div class="page-head" style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div>
+        <div class="page-title">${id ? 'Edit Post' : 'New Blog Post'}</div>
+        <div class="page-sub">${id ? 'Update existing post' : 'Write and publish a new article'}</div>
+      </div>
+      <button class="btn btn-ghost" onclick="renderBlog()">← Back to posts</button>
+    </div>
+    <div class="card">
+      <div class="blog-form">
+        <div class="form-row">
+          <div class="form-group" style="grid-column:1/-1">
+            <label>Post Title *</label>
+            <input class="form-control" id="b-title" value="${escH(post.title)}" placeholder="Enter post title…">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category *</label>
+            <select class="form-control" id="b-category">
+              ${['SMB Guide','For Technicians','AI & Technology','Product Update','Case Study'].map(c =>
+                `<option ${post.category===c?'selected':''}>${c}</option>`
+              ).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Author</label>
+            <input class="form-control" id="b-author" value="${escH(post.author||'Neurovia Team')}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Excerpt (shown on blog listing)</label>
+          <textarea class="form-control" id="b-excerpt" rows="2" placeholder="Short summary of the post…">${escH(post.excerpt||'')}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Read Time (e.g. "5 min read")</label>
+          <input class="form-control" id="b-readtime" value="${escH(post.read_time||'')}" placeholder="5 min read" style="max-width:200px">
+        </div>
+        <div class="form-group">
+          <label>Content * (HTML supported)</label>
+          <textarea class="form-control" id="blog-content" placeholder="Write your article here. You can use HTML tags for formatting…">${escH(post.content||'')}</textarea>
+        </div>
+        <div class="form-checks">
+          <label class="form-check">
+            <input type="checkbox" id="b-published" ${post.published?'checked':''}> Publish immediately
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="b-featured" ${post.featured?'checked':''}> Featured post
+          </label>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" onclick="saveBlogPost(false)">💾 Save Draft</button>
+          <button class="btn btn-approve" onclick="saveBlogPost(true)">🚀 Publish</button>
+          <button class="btn btn-ghost" onclick="renderBlog()">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function escH(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function saveBlogPost(publish) {
+  const payload = {
+    title:     document.getElementById('b-title').value.trim(),
+    category:  document.getElementById('b-category').value,
+    excerpt:   document.getElementById('b-excerpt').value.trim(),
+    content:   document.getElementById('blog-content').value.trim(),
+    author:    document.getElementById('b-author').value.trim(),
+    read_time: document.getElementById('b-readtime').value.trim(),
+    published: publish || document.getElementById('b-published').checked,
+    featured:  document.getElementById('b-featured').checked
+  };
+
+  if (!payload.title) { toast('Title is required', 'error'); return; }
+  if (!payload.content) { toast('Content is required', 'error'); return; }
+
+  let res;
+  if (editingPostId) {
+    res = await api('PUT', `/api/admin/blog/${editingPostId}`, payload);
+  } else {
+    res = await api('POST', '/api/admin/blog', payload);
+  }
+
+  if (res && res.success) {
+    toast(publish ? 'Post published!' : 'Draft saved!');
+    setTimeout(() => renderBlog(), 800);
+  } else {
+    toast(res?.message || 'Save failed', 'error');
+  }
+}
+
+async function deleteBlogPost(id) {
+  confirm('Delete Post', 'This will permanently delete the post. Cannot be undone.', async () => {
+    const res = await api('DELETE', `/api/admin/blog/${id}`);
+    if (res && res.success) { toast('Post deleted'); renderBlog(); }
+    else toast('Error', 'error');
+  });
+}
+
+// ── AUTO LOGIN IF TOKEN EXISTS ─────────────────────────────
+if (TOKEN) { startApp(); }
+</script>
+</body>
+</html>
